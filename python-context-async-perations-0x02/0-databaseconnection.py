@@ -1,9 +1,9 @@
 import mysql.connector
 
 mydb = mysql.connector.connect(
-                host="localhost",
-                user="yourusername",
-                password="yourpassword"
+    host="localhost",
+    user="yourusername",
+    password="yourpassword"
 )
 
 
@@ -47,7 +47,7 @@ class DatabaseConnection:
         return False
     
 try:
-    with DatabaseConnection(DB_CONFIG) as cursor:
+    with DatabaseConnection(mydb) as cursor:
         # The specified query
         query_string = "SELECT id, name, email FROM users"
         cursor.execute(query_string)
