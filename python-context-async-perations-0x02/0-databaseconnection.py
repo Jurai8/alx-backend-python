@@ -49,7 +49,7 @@ class DatabaseConnection:
 try:
     with DatabaseConnection(mydb) as cursor:
         # The specified query
-        query_string = "SELECT id, name, email FROM users"
+        query_string = "SELECT * FROM users"
         cursor.execute(query_string)
 
         # Fetch and print the results
