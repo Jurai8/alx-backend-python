@@ -1,31 +1,17 @@
 
 import asyncio
-import aioslite
+import aiosqlite
 from mysql.connector.aio import connect
 
+conn = connect(
+    host="localhost",
+    user="yourusername",
+    password="yourpassword"
+)
 
 
-async def connection(func):
-
-    async def wrapper(*args, **kwargs):
-
-        try:
-            conn = await connect(
-                host="localhost",
-                user="yourusername",
-                password="yourpassword"
-            )
-
-            result = await func(conn, *args, **kwargs)
-
-            return result
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-    
-    return wrapper
 
 
-@connection
 async def async_fetch_users():
     try:
         cursor = conn.cursor()
@@ -43,8 +29,6 @@ async def async_fetch_users():
 
 
 
-
-@connection
 async def async_fetch_older_users():
     try:
         cursor = conn.cursor()
