@@ -1,5 +1,6 @@
 
 import asyncio
+import aioslite
 from mysql.connector.aio import connect
 
 
@@ -25,7 +26,7 @@ async def connection(func):
 
 
 @connection
-async def async_fetch_users(conn):
+async def async_fetch_users():
     try:
         cursor = conn.cursor()
 
@@ -44,7 +45,7 @@ async def async_fetch_users(conn):
 
 
 @connection
-async def async_fetch_older_users(conn):
+async def async_fetch_older_users():
     try:
         cursor = conn.cursor()
 
