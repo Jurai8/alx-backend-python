@@ -59,6 +59,7 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
 
+
     def test_memoize(self):
 
         """
