@@ -4,9 +4,14 @@ import utils
 from parameterized import parameterized, parameterized_class
 import unittest
 
-class TestAccessNestedMap:
+class TestAccessNestedMap(unittest.TestCase):
 
-    @parameterized.expand 
-    def test_access_nested_map(self):
-        nested_map = {"a": {"b": {"c": 1}}}
-        self.assertEqual(utils.access_nested_map(nested_map), 1 )
+    @parameterized.expand([
+        # input(nested map), path, result
+        ({"a": 1}, ("a",), (1)),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2),
+    ])
+    
+    def test_access_nested_map(self, nested_map, path, result):
+        self.assertEqual(utils.access_nested_map(nested_map, path), result)
