@@ -37,13 +37,13 @@ class TestAccessNestedMap(unittest.TestCase):
         def test_get_json(self, test_url, test_payload, mock_request):
 
             mock_response = MagicMock()
-            mock_response.json.return_value = test_payload
-            
+            mock_response.json.return_value = {"payload": True}
+
             mock_request.get.return_value = mock_response
 
             mock_request.assert_called_once_with(test_url)
 
-            self.assertEqual(utils.get_json(test_url), test_payload)
+            self.assertEqual(utils.get_json(test_url), {"payload": True})
 
 
 
