@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""
+This module contains unit tests for the utils module.
+
+It tests functionality including nested map access, JSON retrieval,
+and memoization decorators using unittest and mocking.
+"""
+
 import utils
 from utils import memoize
 from unittest.mock import patch, Mock, MagicMock
@@ -8,6 +15,8 @@ import unittest
 
 
 class TestAccessNestedMap(unittest.TestCase):
+
+    """Test class for testing the access_nested_map function."""
 
     @parameterized.expand([
         # input(nested map), path, result
@@ -51,6 +60,13 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
 
     def test_memoize(self):
+
+        """
+        Test that the memoize decorator properly caches function results.
+        
+        Verifies that a decorated method is only called once even when
+        accessed multiple times, demonstrating proper memoization behavior.
+        """
         class TestClass:
 
             def a_method(self):
@@ -69,5 +85,3 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(result1, 42)
             self.assertEqual(result2, 42)
             mock_a_method.assert_called_once()
-
-
