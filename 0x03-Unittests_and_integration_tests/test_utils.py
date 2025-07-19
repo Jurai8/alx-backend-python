@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
-
 import utils
 from utils import memoize
 from unittest.mock import patch, Mock, MagicMock
 from parameterized import parameterized, parameterized_class
 import unittest
+
 
 class TestAccessNestedMap(unittest.TestCase):
 
@@ -13,7 +12,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a",), (1)),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2),
-    ]) 
+    ])
     def test_access_nested_map(self, nested_map, path, result):
         self.assertEqual(utils.access_nested_map(nested_map, path), result)
 
@@ -22,12 +21,12 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), (KeyError)),
     ])
     def test_access_nested_map_exception(self, nested_map, path, exception):
-            with self.assertRaises(exception):
-                utils.access_nested_map(nested_map, path) 
+        with self.assertRaises(exception):
+            utils.access_nested_map(nested_map, path)
 
 
 class TestGetJson(unittest.TestCase):
-    
+
     @parameterized.expand([
         (("http://example.com"), {"payload": True}),
         (("http://holberton.io"), {"payload": False})
@@ -46,8 +45,9 @@ class TestGetJson(unittest.TestCase):
 
         self.assertEqual(result, test_payload)
 
+
 class TestMemoize(unittest.TestCase):
-    
+
     def test_memoize(self):
         class TestClass:
 
@@ -60,7 +60,8 @@ class TestMemoize(unittest.TestCase):
 
         instance = TestClass()
 
-        with patch.object(instance, 'a_method', return_value=42) as mock_a_method:
+        with patch.object(instance, 'a_method',
+                          return_value=42) as mock_a_method:
             result1 = instance.a_property
             result2 = instance.a_property
             self.assertEqual(result1, 42)
