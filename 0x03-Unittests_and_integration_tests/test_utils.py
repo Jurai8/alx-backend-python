@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 import utils
 from parameterized import parameterized, parameterized_class
