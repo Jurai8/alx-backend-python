@@ -6,10 +6,6 @@ from unittest.mock import patch, Mock, MagicMock
 from parameterized import parameterized, parameterized_class
 import unittest
 
-print("=== DEBUG: Imports successful ===")
-print(f"utils module: {utils}")
-print(f"utils.get_json function: {getattr(utils, 'get_json', 'NOT FOUND')}")
-
 class TestAccessNestedMap(unittest.TestCase):
 
     @parameterized.expand([
@@ -30,7 +26,6 @@ class TestAccessNestedMap(unittest.TestCase):
                 utils.access_nested_map(nested_map, path) 
 
 
-
 class TestGetJson(unittest.TestCase):
     @unittest.mock.patch('utils.requests.get')
     @parameterized.expand([
@@ -39,7 +34,6 @@ class TestGetJson(unittest.TestCase):
     ])
     
     def test_get_json(self, test_url, test_payload, mock_get):
-        print(f"=== DEBUG: Running test with {test_url}, {test_payload} ===")
 
         mock_response = MagicMock()
         mock_response.json.return_value = test_payload
@@ -47,14 +41,10 @@ class TestGetJson(unittest.TestCase):
         mock_get.return_value = mock_response
 
         result = utils.get_json(test_url)
-        print(f"=== DEBUG: get_json returned: {result} ===")
 
         mock_get.assert_called_once_with(test_url)
 
         self.assertEqual(utils.get_json(test_url), test_payload)
-        print("=== DEBUG: Test passed ===")
-
-
 
 class TestMemoize(unittest.TestCase):
     
