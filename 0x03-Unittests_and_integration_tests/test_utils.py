@@ -6,6 +6,10 @@ from unittest.mock import patch, Mock, MagicMock
 from parameterized import parameterized, parameterized_class
 import unittest
 
+print("=== DEBUG: Imports successful ===")
+print(f"utils module: {utils}")
+print(f"utils.get_json function: {getattr(utils, 'get_json', 'NOT FOUND')}")
+
 class TestAccessNestedMap(unittest.TestCase):
 
     @parameterized.expand([
@@ -27,47 +31,50 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 
-    class TestGetJson(unittest.TestCase):
-        @unittest.mock.patch('utils.requests.get')
-        @parameterized.expand([
-            (("http://example.com"), {"payload": True}),
-            (("http://holberton.io"), {"payload": False})
-        ])
-        
-        def test_get_json(self, test_url, test_payload, mock_get):
+class TestGetJson(unittest.TestCase):
+    @unittest.mock.patch('utils.requests.get')
+    @parameterized.expand([
+        (("http://example.com"), {"payload": True}),
+        (("http://holberton.io"), {"payload": False})
+    ])
+    
+    def test_get_json(self, test_url, test_payload, mock_get):
+        print(f"=== DEBUG: Running test with {test_url}, {test_payload} ===")
 
-            mock_response = MagicMock()
-            mock_response.json.return_value = test_payload
+        mock_response = MagicMock()
+        mock_response.json.return_value = test_payload
 
-            mock_get.return_value = mock_response
+        mock_get.return_value = mock_response
 
-            result = utils.get_json(test_url)
+        result = utils.get_json(test_url)
+        print(f"=== DEBUG: get_json returned: {result} ===")
 
-            mock_get.assert_called_once_with(test_url)
+        mock_get.assert_called_once_with(test_url)
 
-            self.assertEqual(utils.get_json(test_url), test_payload)
+        self.assertEqual(utils.get_json(test_url), test_payload)
+        print("=== DEBUG: Test passed ===")
 
 
 
-    class TestMemoize(unittest.TestCase):
-        
-        def test_memoize(self):
-            class TestClass:
+class TestMemoize(unittest.TestCase):
+    
+    def test_memoize(self):
+        class TestClass:
 
-                def a_method(self):
-                    return 42
+            def a_method(self):
+                return 42
 
-                @memoize
-                def a_property(self):
-                    return self.a_method()
+            @memoize
+            def a_property(self):
+                return self.a_method()
 
-            instance = TestClass()
+        instance = TestClass()
 
-            with patch.object(instance, 'a_method', return_value=42) as mock_a_method:
-                result1 = instance.a_property()
-                result2 = instance.a_property()
-                self.assertEqual(result1, 42)
-                self.assertEqual(result2, 42)
-                mock_a_method.assert_called_once()
+        with patch.object(instance, 'a_method', return_value=42) as mock_a_method:
+            result1 = instance.a_property()
+            result2 = instance.a_property()
+            self.assertEqual(result1, 42)
+            self.assertEqual(result2, 42)
+            mock_a_method.assert_called_once()
 
 
