@@ -1,7 +1,3 @@
-import sqlite3 
-import functools
-
-"""your code goes here"""
 
 import sqlite3 
 import functools
