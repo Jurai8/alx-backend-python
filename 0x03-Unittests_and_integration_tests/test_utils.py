@@ -25,20 +25,24 @@ class TestAccessNestedMap(unittest.TestCase):
             with self.assertRaises(exception):
                 utils.access_nested_map(nested_map, path) 
 
-    @unittest.mock.patch('utils.requests.get')
-    @parameterized.expand([
+
+
+    class TestGetJson(unittest.TestCase):
+        @unittest.mock.patch('utils.requests.get')
+        @parameterized.expand([
         (("http://example.com"), {"payload": True}),
         (("http://holberton.io"), {"payload": True})
     ])
-    def test_get_json(self, test_url, test_payload, mock_get):
-        mock_response = Mock()
-
-        mock_response.json.return_value = test_payload
         
-        mock_get.return_value = mock_response
+        def test_get_json(self, test_url, test_payload, mock_get):
+            mock_response = Mock()
 
-        result = utils.get_json(test_url)
+            mock_response.json.return_value = test_payload
 
-        mock_get.assert_called_once_with(test_url)
+            mock_get.return_value = mock_response
 
-        self.assertEqual(result, test_payload)
+            result = utils.get_json(test_url)
+
+            mock_get.assert_called_once_with(test_url)
+
+            self.assertEqual(result, test_payload)
