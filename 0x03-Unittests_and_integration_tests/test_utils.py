@@ -6,7 +6,6 @@ This module contains unit tests for the utils module.
 It tests functionality including nested map access, JSON retrieval,
 and memoization decorators using unittest and mocking.
 """
-
 import utils
 from utils import memoize
 from unittest.mock import patch, Mock, MagicMock
@@ -45,6 +44,11 @@ class TestGetJson(unittest.TestCase):
     @patch('utils.requests.get')
     def test_get_json(self, test_url, test_payload, mock_get):
 
+        """
+        test whether the get function returns a json corresponding to the url
+        use mock to avoid creating an actual request by mimicking the
+        get function
+        """
         mock_response = MagicMock()
         mock_response.json.return_value = test_payload
 
@@ -62,7 +66,6 @@ class TestMemoize(unittest.TestCase):
 
         """
         Test that the memoize decorator properly caches function results.
-        
         Verifies that a decorated method is only called once even when
         accessed multiple times, demonstrating proper memoization behavior.
         """
