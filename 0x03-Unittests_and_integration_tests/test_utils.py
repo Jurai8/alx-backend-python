@@ -44,6 +44,11 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
+    """
+    This class is used to test the get_json function.
+    paramaterized is used for the arguments. patch and 
+    mock are used instead of calling the actual function
+    """
 
     @parameterized.expand([
         (("http://example.com"), {"payload": True}),
@@ -51,9 +56,8 @@ class TestGetJson(unittest.TestCase):
     ])
     @patch('utils.requests.get')
     def test_get_json(self, test_url, test_payload, mock_get):
-
         """
-        test whether the get function returns a json corresponding to the url
+        Test whether the get function returns a json corresponding to the url
         use mock to avoid creating an actual request by mimicking the
         get function
         """
@@ -70,8 +74,12 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    def test_memoize(self):
+    """
+    This class is used to test memoize, by mocking an object
+    and testing it's functionality
+    """
 
+    def test_memoize(self):
         """
         Test that the memoize decorator properly caches function results.
         Verifies that a decorated method is only called once even when
