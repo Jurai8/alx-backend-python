@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Unit tests for client module"""
+
 import utils
 from utils import memoize
 from unittest.mock import patch, Mock, MagicMock, PropertyMock
