@@ -2,7 +2,7 @@
 
 import utils
 from utils import memoize
-from unittest.mock import patch, Mock, MagicMock
+from unittest.mock import patch, Mock, MagicMock, PropertyMock
 from parameterized import parameterized, parameterized_class
 import unittest
 import client 
@@ -31,3 +31,26 @@ class TestGithubOrgClient(unittest.TestCase):
         
         # Assert the result is what we expect
         self.assertEqual(result, expected_org_data)
+
+    @patch('client.GithubOrgClient.org', new_callable=PropertyMock)
+    def test_public_repos_url(self, mock_org):
+        """Unit test for GithubOrgClient._public_repos_url"""
+
+        expected_repo_url = f"https://api.github.com/orgs/{org_name}"
+
+        mock_org.return_value = {
+            "repos_url": expected_repo_url,
+            "name": "test-org",
+        }
+
+        client = GithubOrgClient("test-org")
+
+        result = client._public_repos_url
+
+        self.assertEqual(result, expected_repo_url)
+
+        mock_org.assert_called_once()
+
+       
+
+        
