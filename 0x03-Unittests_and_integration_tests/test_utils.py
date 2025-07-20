@@ -35,6 +35,10 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), (KeyError)),
     ])
     def test_access_nested_map_exception(self, nested_map, path, exception):
+        """
+        Test if access nested map will raise an error when trying to access
+        a non existent path
+        """
         with self.assertRaises(exception):
             utils.access_nested_map(nested_map, path)
 
