@@ -46,7 +46,7 @@ class TestAccessNestedMap(unittest.TestCase):
 class TestGetJson(unittest.TestCase):
     """
     This class is used to test the get_json function.
-    paramaterized is used for the arguments. patch and 
+    paramaterized is used for the arguments. patch and
     mock are used instead of calling the actual function
     """
 
